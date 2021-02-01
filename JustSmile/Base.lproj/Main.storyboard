@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CoreML_test" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Press begin button to see advice!" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJR-tn-vDn">
+                                <rect key="frame" x="10" y="811" width="304" height="75"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2j-XY-9hi">
+                                <rect key="frame" x="132" y="751" width="150" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="32V-2k-jbk"/>
+                                    <constraint firstAttribute="width" constant="150" id="WrO-ad-Q7Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="begin">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhotoButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BxW-ij-pIO"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UO-Rf-0Pl">
+                                <rect key="frame" x="0.0" y="129" width="414" height="572"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dvg-bY-jXh">
+                                <rect key="frame" x="314" y="796" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="13I-88-d5g"/>
+                                    <constraint firstAttribute="height" constant="80" id="ruU-NT-txK"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHF-tU-18t" customClass="RoundedButton" customModule="CoreML_test" customModuleProvider="target">
+                                <rect key="frame" x="20" y="69" width="55" height="55"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="7BM-B5-Ly5"/>
+                                    <constraint firstAttribute="width" constant="55" id="Wat-5b-Bvl"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="" image="camera"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="toggleCameraButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nur-Hg-aj5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Dvg-bY-jXh" firstAttribute="leading" secondItem="yJR-tn-vDn" secondAttribute="trailing" id="2Qz-6I-gCS"/>
+                            <constraint firstAttribute="bottom" secondItem="yJR-tn-vDn" secondAttribute="bottom" constant="10" id="EHD-Jd-DPo"/>
+                            <constraint firstAttribute="bottom" secondItem="x2j-XY-9hi" secondAttribute="bottom" constant="85" id="KK0-eO-egi"/>
+                            <constraint firstItem="7UO-Rf-0Pl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="MjQ-tO-4wW"/>
+                            <constraint firstItem="vHF-tU-18t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="OY6-cJ-zxs"/>
+                            <constraint firstItem="7UO-Rf-0Pl" firstAttribute="top" secondItem="vHF-tU-18t" secondAttribute="bottom" constant="5" id="WJu-rN-tWd"/>
+                            <constraint firstItem="yJR-tn-vDn" firstAttribute="top" secondItem="x2j-XY-9hi" secondAttribute="bottom" id="Wdj-BR-OjM"/>
+                            <constraint firstItem="x2j-XY-9hi" firstAttribute="top" secondItem="7UO-Rf-0Pl" secondAttribute="bottom" constant="50" id="ZFJ-zs-pbH"/>
+                            <constraint firstItem="vHF-tU-18t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="fdp-gU-Vih"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dvg-bY-jXh" secondAttribute="trailing" constant="20" id="gjn-OJ-yYq"/>
+                            <constraint firstItem="yJR-tn-vDn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="hpH-Sl-rTz"/>
+                            <constraint firstItem="x2j-XY-9hi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="idy-I0-zi2"/>
+                            <constraint firstAttribute="bottom" secondItem="Dvg-bY-jXh" secondAttribute="bottom" constant="20" id="ifU-a9-OVz"/>
+                            <constraint firstItem="7UO-Rf-0Pl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lru-Zr-pNN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cameraView" destination="7UO-Rf-0Pl" id="644-qV-ToQ"/>
+                        <outlet property="descriptionLabel" destination="yJR-tn-vDn" id="mdZ-dM-fKa"/>
+                        <outlet property="emotionImage" destination="Dvg-bY-jXh" id="EeX-vX-APB"/>
+                        <outlet property="takePhotoButton" destination="x2j-XY-9hi" id="ZUl-Fe-cbh"/>
+                        <outlet property="toggleCameraButton" destination="vHF-tU-18t" id="1TM-Rg-u4V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="50.724637681159422" y="57.589285714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="camera" width="100" height="100"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
