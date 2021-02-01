@@ -45,7 +45,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        captureSession.sessionPreset = .photo
         guard let captureDevice = getFrontCamera() else { return }
         setupCaptureSession(captureDevice: captureDevice, captureSession: captureSession)
     }
@@ -73,39 +72,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     observedData.append(firstObservation.identifier)
 
                     if observedData.count >= 50 {
-                        if let predict = findBestPredict(data: observedData) {
-                            print("best predict: \(predict)")
-                            switch predict {
-                            
-                            case "happy":
-                                descriptionLabel.text = AdviceDatasource.getHappyAdvice()
-                            case "sad":
-                                descriptionLabel.text = AdviceDatasource.getSadAdvice()
-                            case "angry":
-                                descriptionLabel.text = AdviceDatasource.getAngryAdvice()
-                            case "surprise":
-                                descriptionLabel.text = AdviceDatasource.getSurpriseAdvice()
-                            case "neutral":
-                                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
-                            case "fear":
-                                descriptionLabel.text = AdviceDatasource.getFearAdvice()
-                        
-                            default:
-                                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
-                            }
-                            
-//                            descriptionLabel.text = predict
-                            emotionImage.image = UIImage(imageLiteralResourceName: "\(predict)")
-                            observedData = []
-                            observationStarted = false
-                            takePhotoButton.setTitle("begin", for: .normal)
-                            
-                        }
+                        layoutPredict()
                     }
                 }
-//                if(firstObservation.confidence > 0.0) {
-//                    descriptionLabel.text = "\(firstObservation.identifier)"
-//                }
             }
         }
         
@@ -126,7 +95,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func setupCaptureSession(captureDevice: AVCaptureDevice, captureSession: AVCaptureSession) {
         
-//        stopSession()
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
         
@@ -135,12 +103,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         captureSession.addInput(input)
         captureSession.startRunning()
-//        view.layer.sublayers?.removeLast()
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//        previewLayer.videoGravity = .resizeAspect
-//        previewLayer.connection?.videoOrientation = .portrait
-//        cameraView.layer.addSublayer(previewLayer)
         view.layer.addSublayer(previewLayer)
         previewLayer.frame = view.frame
         
@@ -160,6 +124,38 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
 
         return nil
+    }
+    
+    func layoutPredict() {
+        
+        if let predict = findBestPredict(data: observedData) {
+            print("best predict: \(predict)")
+            switch predict {
+            
+            case "happy":
+                descriptionLabel.text = AdviceDatasource.getHappyAdvice()
+            case "sad":
+                descriptionLabel.text = AdviceDatasource.getSadAdvice()
+            case "angry":
+                descriptionLabel.text = AdviceDatasource.getAngryAdvice()
+            case "surprise":
+                descriptionLabel.text = AdviceDatasource.getSurpriseAdvice()
+            case "neutral":
+                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
+            case "fear":
+                descriptionLabel.text = AdviceDatasource.getFearAdvice()
+        
+            default:
+                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
+            }
+            
+//                            descriptionLabel.text = predict
+            emotionImage.image = UIImage(imageLiteralResourceName: "\(predict)")
+            observedData = []
+            observationStarted = false
+            takePhotoButton.setTitle("begin", for: .normal)
+            
+        }
     }
     
 }
