@@ -1,18 +1,17 @@
 //
-//  RoundedButton.swift
-//  CoreML_test
+//  RoundedLabel.swift
+//  JustSmile
 //
-//  Created by Vitaly Kozlov on 01.02.2021.
+//  Created by Vitaly Kozlov on 02.02.2021.
 //
 
 import UIKit
 
-class RoundedButton: UIButton {
+class RoundedLabel: UILabel {
 
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
-            self.layer.cornerRadius = cornerRadius
-                
+        self.layer.cornerRadius = cornerRadius
         }
     }
 
@@ -27,4 +26,5 @@ class RoundedButton: UIButton {
             self.layer.borderColor = borderColor.cgColor
         }
     }
+
 }

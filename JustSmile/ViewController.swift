@@ -11,20 +11,25 @@ import Vision
 import CoreML
 
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate{
+class ViewController: UIViewController {
 
     var isFrontMode: Bool = true
     var observationStarted: Bool = false
+    var realtimeMode: Bool = false
+    var bestPredict: String = ""
     let videoQueue = DispatchQueue(label: "videoQueue")
     let captureSession = AVCaptureSession()
-    var observedData:[String] = []
-    
+    var observedData: [String] = []
+    var observedConfidence: [Float] = []
     
     @IBOutlet weak var emotionImage: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var toggleCameraButton: UIButton!
     @IBOutlet weak var takePhotoButton: UIButton!
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var predictLabel: RoundedLabel!
+    @IBOutlet weak var realtimeButton: RoundedButton!
+    
     
     @IBAction func toggleCameraButtonTapped(_ sender: Any) {
         
@@ -39,47 +44,30 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     @IBAction func takePhotoButtonTapped(_ sender: Any) {
+        realtimeMode = false
         observationStarted = true
+        realtimeButton.backgroundColor = .clear
+        predictLabel.text = ""
         takePhotoButton.setTitle("please wait...", for: .normal)
+    }
+    
+    @IBAction func realtimeButtonTapped(_ sender: Any) {
+       
+        if !observationStarted {
+            realtimeMode.toggle()
+        }
+        
+        if realtimeMode {
+            realtimeButton.backgroundColor = .systemTeal
+        } else {
+            realtimeButton.backgroundColor = .clear
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let captureDevice = getFrontCamera() else { return }
         setupCaptureSession(captureDevice: captureDevice, captureSession: captureSession)
-    }
-
-
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        print("Camera was able capture a frame: ", Date())
-       
-        guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        
-        guard let model = try? VNCoreMLModel(for: EmotionClassifier(configuration: MLModelConfiguration()).model) else { return }
-        
-        let request = VNCoreMLRequest(model: model) {
-            (finishedReq, err) in
-            
-//            print(finishedReq.results)
-            guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
-            guard let firstObservation = results.first else { return }
-            
-            
-            print(firstObservation.identifier, firstObservation.confidence)
-            
-            DispatchQueue.main.async { [self] in
-                if observationStarted {
-                    observedData.append(firstObservation.identifier)
-
-                    if observedData.count >= 50 {
-                        layoutPredict()
-                    }
-                }
-            }
-        }
-        
-        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
-        
     }
     
     func getFrontCamera() -> AVCaptureDevice?{
@@ -149,15 +137,69 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
             }
             
-//                            descriptionLabel.text = predict
+            let averageConfidence = Int(observedConfidence.average * 2 * 100)
+            
             emotionImage.image = UIImage(imageLiteralResourceName: "\(predict)")
+            predictLabel.text = "\(predict) with \(averageConfidence)% confidence"
             observedData = []
+            observedConfidence = []
             observationStarted = false
             takePhotoButton.setTitle("begin", for: .normal)
             
         }
     }
-    
 }
 
+extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+//        print("Camera was able capture a frame: ", Date())
+       
+        guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
+        guard let model = try? VNCoreMLModel(for: EmotionClassifier(configuration: MLModelConfiguration()).model) else { return }
+        
+        let request = VNCoreMLRequest(model: model) {
+            (finishedReq, err) in
+            
+//            print(finishedReq.results)
+            guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
+            guard let firstObservation = results.first else { return }
+            
+            print(firstObservation.identifier, firstObservation.confidence)
+            
+            DispatchQueue.main.async { [self] in
+               
+                if observationStarted {
+                    observedData.append(firstObservation.identifier)
+                    observedConfidence.append(firstObservation.confidence)
+                    realtimeMode = false
+                    if observedData.count >= 50 {
+                        layoutPredict()
+                    }
+                    
+                } else if realtimeMode {
+                    predictLabel.text = "\(firstObservation.identifier) with \(Int(firstObservation.confidence * 100))% confidence"
+                }
+            }
+        }
+        
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
+        
+    }
+}
 
+extension Array where Element: FloatingPoint {
+    
+    var sum: Element {
+        return reduce(0, +)
+    }
+
+    var average: Element {
+        guard !isEmpty else {
+            return 0
+        }
+        return sum / Element(count)
+    }
+
+}

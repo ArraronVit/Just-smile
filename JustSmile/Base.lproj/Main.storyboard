@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CoreML_test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="JustSmile" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,7 +48,7 @@
                                     <constraint firstAttribute="height" constant="80" id="ruU-NT-txK"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHF-tU-18t" customClass="RoundedButton" customModule="CoreML_test" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHF-tU-18t" customClass="RoundedButton" customModule="JustSmile" customModuleProvider="target">
                                 <rect key="frame" x="20" y="69" width="55" height="55"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -69,6 +69,53 @@
                                     <action selector="toggleCameraButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nur-Hg-aj5"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlw-yZ-n2P" customClass="RoundedLabel" customModule="JustSmile">
+                                <rect key="frame" x="124" y="64" width="270" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="270" id="8C2-4U-CIu"/>
+                                    <constraint firstAttribute="height" constant="60" id="p4Y-1X-eQR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ld8-B4-aLs" customClass="RoundedButton" customModule="JustSmile" customModuleProvider="target">
+                                <rect key="frame" x="20" y="765" width="100" height="36"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="MTS-JC-eep"/>
+                                    <constraint firstAttribute="width" constant="100" id="w8Z-J9-Wg7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <state key="normal" title="Realtime">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="realtimeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7p9-m7-KuI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,8 +125,10 @@
                             <constraint firstAttribute="bottom" secondItem="x2j-XY-9hi" secondAttribute="bottom" constant="85" id="KK0-eO-egi"/>
                             <constraint firstItem="7UO-Rf-0Pl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="MjQ-tO-4wW"/>
                             <constraint firstItem="vHF-tU-18t" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="OY6-cJ-zxs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hlw-yZ-n2P" secondAttribute="trailing" constant="20" id="QxM-2q-22j"/>
                             <constraint firstItem="7UO-Rf-0Pl" firstAttribute="top" secondItem="vHF-tU-18t" secondAttribute="bottom" constant="5" id="WJu-rN-tWd"/>
                             <constraint firstItem="yJR-tn-vDn" firstAttribute="top" secondItem="x2j-XY-9hi" secondAttribute="bottom" id="Wdj-BR-OjM"/>
+                            <constraint firstItem="yJR-tn-vDn" firstAttribute="top" secondItem="Ld8-B4-aLs" secondAttribute="bottom" constant="10" id="Xxa-OB-zhI"/>
                             <constraint firstItem="x2j-XY-9hi" firstAttribute="top" secondItem="7UO-Rf-0Pl" secondAttribute="bottom" constant="50" id="ZFJ-zs-pbH"/>
                             <constraint firstItem="vHF-tU-18t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="fdp-gU-Vih"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dvg-bY-jXh" secondAttribute="trailing" constant="20" id="gjn-OJ-yYq"/>
@@ -87,12 +136,16 @@
                             <constraint firstItem="x2j-XY-9hi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="idy-I0-zi2"/>
                             <constraint firstAttribute="bottom" secondItem="Dvg-bY-jXh" secondAttribute="bottom" constant="20" id="ifU-a9-OVz"/>
                             <constraint firstItem="7UO-Rf-0Pl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lru-Zr-pNN"/>
+                            <constraint firstItem="hlw-yZ-n2P" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="nMg-08-bWe"/>
+                            <constraint firstItem="Ld8-B4-aLs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vBn-IS-H6i"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="7UO-Rf-0Pl" id="644-qV-ToQ"/>
                         <outlet property="descriptionLabel" destination="yJR-tn-vDn" id="mdZ-dM-fKa"/>
                         <outlet property="emotionImage" destination="Dvg-bY-jXh" id="EeX-vX-APB"/>
+                        <outlet property="predictLabel" destination="hlw-yZ-n2P" id="6d2-ln-pKj"/>
+                        <outlet property="realtimeButton" destination="Ld8-B4-aLs" id="it8-kU-3BX"/>
                         <outlet property="takePhotoButton" destination="x2j-XY-9hi" id="ZUl-Fe-cbh"/>
                         <outlet property="toggleCameraButton" destination="vHF-tU-18t" id="1TM-Rg-u4V"/>
                     </connections>

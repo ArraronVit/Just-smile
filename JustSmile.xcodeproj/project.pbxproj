@@ -17,6 +17,7 @@
 		D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */; };
 		D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46EC25C8361400A1FC03 /* RoundedButton.swift */; };
 		D8B9548425C05F2100086CA0 /* EmotionClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */; };
+		D8F9156A25C97A8E00C0869A /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F9156925C97A8E00C0869A /* RoundedLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceDatasource.swift; sourceTree = "<group>"; };
 		D87A46EC25C8361400A1FC03 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionClassifier.mlmodel; sourceTree = "<group>"; };
+		D8F9156925C97A8E00C0869A /* RoundedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				D84AD9E925C47DB300DD8D8F /* MyPlayground.playground */,
 				D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */,
 				D87A46EC25C8361400A1FC03 /* RoundedButton.swift */,
+				D8F9156925C97A8E00C0869A /* RoundedLabel.swift */,
 			);
 			path = JustSmile;
 			sourceTree = "<group>";
@@ -157,6 +160,7 @@
 				D851721525BC88A100CF41E0 /* AppDelegate.swift in Sources */,
 				D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */,
 				D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */,
+				D8F9156A25C97A8E00C0869A /* RoundedLabel.swift in Sources */,
 				D851721725BC88A100CF41E0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
