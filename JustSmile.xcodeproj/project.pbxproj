@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D811EB1D25CB413E00D635D0 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = D811EB1C25CB413E00D635D0 /* Array.swift */; };
 		D851721525BC88A100CF41E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851721425BC88A100CF41E0 /* AppDelegate.swift */; };
 		D851721725BC88A100CF41E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851721625BC88A100CF41E0 /* SceneDelegate.swift */; };
 		D851721925BC88A100CF41E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851721825BC88A100CF41E0 /* ViewController.swift */; };
 		D851721C25BC88A100CF41E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D851721A25BC88A100CF41E0 /* Main.storyboard */; };
 		D851721E25BC88A200CF41E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D851721D25BC88A200CF41E0 /* Assets.xcassets */; };
 		D851722125BC88A200CF41E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D851721F25BC88A200CF41E0 /* LaunchScreen.storyboard */; };
-		D87A46E725C813ED00A1FC03 /* MyImageClassifier 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D87A46E625C813ED00A1FC03 /* MyImageClassifier 1.mlmodel */; };
 		D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */; };
 		D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46EC25C8361400A1FC03 /* RoundedButton.swift */; };
 		D8B9548425C05F2100086CA0 /* EmotionClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */; };
@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D811EB1C25CB413E00D635D0 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		D84AD9E925C47DB300DD8D8F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D851721125BC88A100CF41E0 /* JustSmile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustSmile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D851721425BC88A100CF41E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,7 +31,6 @@
 		D851721D25BC88A200CF41E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D851722025BC88A200CF41E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D851722225BC88A200CF41E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D87A46E625C813ED00A1FC03 /* MyImageClassifier 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "MyImageClassifier 1.mlmodel"; sourceTree = "<group>"; };
 		D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceDatasource.swift; sourceTree = "<group>"; };
 		D87A46EC25C8361400A1FC03 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionClassifier.mlmodel; sourceTree = "<group>"; };
@@ -48,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D811EB1B25CB413E00D635D0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D811EB1C25CB413E00D635D0 /* Array.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D851720825BC88A100CF41E0 = {
 			isa = PBXGroup;
 			children = (
@@ -67,8 +75,8 @@
 		D851721325BC88A100CF41E0 /* JustSmile */ = {
 			isa = PBXGroup;
 			children = (
+				D811EB1B25CB413E00D635D0 /* Extensions */,
 				D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */,
-				D87A46E625C813ED00A1FC03 /* MyImageClassifier 1.mlmodel */,
 				D851721425BC88A100CF41E0 /* AppDelegate.swift */,
 				D851721625BC88A100CF41E0 /* SceneDelegate.swift */,
 				D851721825BC88A100CF41E0 /* ViewController.swift */,
@@ -155,11 +163,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8B9548425C05F2100086CA0 /* EmotionClassifier.mlmodel in Sources */,
-				D87A46E725C813ED00A1FC03 /* MyImageClassifier 1.mlmodel in Sources */,
 				D851721925BC88A100CF41E0 /* ViewController.swift in Sources */,
 				D851721525BC88A100CF41E0 /* AppDelegate.swift in Sources */,
 				D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */,
 				D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */,
+				D811EB1D25CB413E00D635D0 /* Array.swift in Sources */,
 				D8F9156A25C97A8E00C0869A /* RoundedLabel.swift in Sources */,
 				D851721725BC88A100CF41E0 /* SceneDelegate.swift in Sources */,
 			);

@@ -11,39 +11,155 @@ import Vision
 import CoreML
 
 
-class ViewController: UIViewController {
-
-    var isFrontMode: Bool = true
+final class ViewController: UIViewController {
+    
+    private var isFrontMode = true {
+        willSet {
+            toggleCamera()
+        }
+    }
+    
     var observationStarted: Bool = false
     var realtimeMode: Bool = false
     var bestPredict: String = ""
-    let videoQueue = DispatchQueue(label: "videoQueue")
-    let captureSession = AVCaptureSession()
     var observedData: [String] = []
     var observedConfidence: [Float] = []
     
-    @IBOutlet weak var emotionImage: UIImageView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var toggleCameraButton: UIButton!
-    @IBOutlet weak var takePhotoButton: UIButton!
-    @IBOutlet weak var cameraView: UIView!
-    @IBOutlet weak var predictLabel: RoundedLabel!
-    @IBOutlet weak var realtimeButton: RoundedButton!
+    private var captureSession: AVCaptureSession?
     
+    private var frontCamera: AVCaptureDevice? {
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
+    }
     
-    @IBAction func toggleCameraButtonTapped(_ sender: Any) {
+    private var backCamera: AVCaptureDevice? {
+        AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back)
+    }
+    
+    @IBOutlet private weak var emotionImage: UIImageView!
+    @IBOutlet private weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var toggleCameraButton: UIButton!
+    @IBOutlet private weak var takePhotoButton: UIButton!
+    @IBOutlet private weak var cameraView: UIView!
+    @IBOutlet private weak var predictLabel: RoundedLabel!
+    @IBOutlet private weak var realtimeButton: RoundedButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        guard let captureDevice = frontCamera else { return }
+        setupCaptureSession(captureDevice: captureDevice)
+    }
+    
+}
+
+extension ViewController {
+    
+    private func setupCaptureSession(captureDevice: AVCaptureDevice) {
+        let captureSession = AVCaptureSession()
+        self.captureSession = captureSession
         
-        if isFrontMode {
-            guard let captureDevice = getBackCamera() else { return }
-            setupCaptureSession(captureDevice: captureDevice, captureSession: captureSession)
-        } else {
-            guard let captureDevice = getFrontCamera() else { return }
-            setupCaptureSession(captureDevice: captureDevice, captureSession: captureSession)
+        captureSession.beginConfiguration()
+        if captureSession.canSetSessionPreset(.photo) {
+            captureSession.sessionPreset = .photo
         }
+        setCaptureSessionInput(captureDevice)
+        let dataOutput = AVCaptureVideoDataOutput()
+        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: Constants.videoQueueName))
+        if captureSession.canAddOutput(dataOutput) {
+            captureSession.addOutput(dataOutput)
+        }
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        view.layer.addSublayer(previewLayer)
+        previewLayer.frame = view.bounds
+        
+        captureSession.commitConfiguration()
+        captureSession.startRunning()
+    }
+    
+    private func setCaptureSessionInput(_ device: AVCaptureDevice) {
+        guard let captureSession = captureSession else {
+            return
+        }
+        if let input = try? AVCaptureDeviceInput(device: device) {
+            captureSession.inputs.forEach { captureSession.removeInput($0) }
+            if captureSession.canAddInput(input) {
+                captureSession.addInput(input)
+            }
+        }
+    }
+    
+    private func layoutPredict() {
+        guard let predictRaw = observedData.mode, let predict = Predict(rawValue: predictRaw) else {
+            return
+        }
+        switch predict {
+        case .happy:
+            descriptionLabel.text = AdviceDatasource.getHappyAdvice()
+        case .sad:
+            descriptionLabel.text = AdviceDatasource.getSadAdvice()
+        case .angry:
+            descriptionLabel.text = AdviceDatasource.getAngryAdvice()
+        case .surprise:
+            descriptionLabel.text = AdviceDatasource.getSurpriseAdvice()
+        case .neutral:
+            descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
+        case .fear:
+            descriptionLabel.text = AdviceDatasource.getFearAdvice()
+        }
+        
+        let averageConfidence = Int(observedConfidence.average * 2 * 100)
+        
+        emotionImage.image = predict.emotionImage
+        predictLabel.text = predict.printable(averageConfidence)
+        observedData = []
+        observedConfidence = []
+        observationStarted = false
+        takePhotoButton.setTitle("begin", for: .normal)
+    }
+    
+    private func toggleCamera() {
+        guard let device = isFrontMode ? backCamera : frontCamera else {
+            return
+        }
+        captureSession?.beginConfiguration()
+        setCaptureSessionInput(device)
+        captureSession?.commitConfiguration()
+    }
+    
+}
+
+private extension ViewController {
+    
+    enum Constants {
+        static let videoQueueName = "videoQueue"
+    }
+    
+    enum Predict: String {
+        case happy
+        case sad
+        case angry
+        case surprise
+        case neutral
+        case fear
+        
+        var emotionImage: UIImage? {
+            UIImage(imageLiteralResourceName: "\(rawValue)")
+        }
+        
+        func printable(_ confidence: Int) -> String {
+            "\(rawValue) with \(confidence)% confidence"
+        }
+    }
+    
+}
+
+extension ViewController {
+    
+    @IBAction private func toggleCameraButtonTapped(_ sender: Any) {
         isFrontMode.toggle()
     }
     
-    @IBAction func takePhotoButtonTapped(_ sender: Any) {
+    @IBAction private func takePhotoButtonTapped(_ sender: Any) {
         realtimeMode = false
         observationStarted = true
         realtimeButton.backgroundColor = .clear
@@ -51,135 +167,45 @@ class ViewController: UIViewController {
         takePhotoButton.setTitle("please wait...", for: .normal)
     }
     
-    @IBAction func realtimeButtonTapped(_ sender: Any) {
-       
+    @IBAction private func realtimeButtonTapped(_ sender: Any) {
         if !observationStarted {
             realtimeMode.toggle()
         }
-        
-        if realtimeMode {
-            realtimeButton.backgroundColor = .systemTeal
-        } else {
-            realtimeButton.backgroundColor = .clear
-        }
+        realtimeButton.backgroundColor = realtimeMode ? .systemTeal : .clear
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        guard let captureDevice = getFrontCamera() else { return }
-        setupCaptureSession(captureDevice: captureDevice, captureSession: captureSession)
-    }
-    
-    func getFrontCamera() -> AVCaptureDevice?{
-        
-        return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .front)
-    }
-
-    
-    func getBackCamera() -> AVCaptureDevice? {
-        
-        return AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: .back)
-    }
-    
-    func setupCaptureSession(captureDevice: AVCaptureDevice, captureSession: AVCaptureSession) {
-        
-        let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .photo
-        
-        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
-        
-        
-        captureSession.addInput(input)
-        captureSession.startRunning()
-        
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        view.layer.addSublayer(previewLayer)
-        previewLayer.frame = view.frame
-        
-        let dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.setSampleBufferDelegate(self, queue: videoQueue)
-        captureSession.addOutput(dataOutput)
-    }
-    
-    func findBestPredict(data: [String]) -> String? {
-       
-        var counts = [String: Int]()
-
-        data.forEach { counts[$0] = (counts[$0] ?? 0) + 1 }
-
-        if let (value, _) = counts.max(by: {$0.1 < $1.1}) {
-            return value
-        }
-
-        return nil
-    }
-    
-    func layoutPredict() {
-        
-        if let predict = findBestPredict(data: observedData) {
-            print("best predict: \(predict)")
-            switch predict {
-            
-            case "happy":
-                descriptionLabel.text = AdviceDatasource.getHappyAdvice()
-            case "sad":
-                descriptionLabel.text = AdviceDatasource.getSadAdvice()
-            case "angry":
-                descriptionLabel.text = AdviceDatasource.getAngryAdvice()
-            case "surprise":
-                descriptionLabel.text = AdviceDatasource.getSurpriseAdvice()
-            case "neutral":
-                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
-            case "fear":
-                descriptionLabel.text = AdviceDatasource.getFearAdvice()
-        
-            default:
-                descriptionLabel.text = AdviceDatasource.getNeutralAdvice()
-            }
-            
-            let averageConfidence = Int(observedConfidence.average * 2 * 100)
-            
-            emotionImage.image = UIImage(imageLiteralResourceName: "\(predict)")
-            predictLabel.text = "\(predict) with \(averageConfidence)% confidence"
-            observedData = []
-            observedConfidence = []
-            observationStarted = false
-            takePhotoButton.setTitle("begin", for: .normal)
-            
-        }
-    }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-//        print("Camera was able capture a frame: ", Date())
-       
+        //        print("Camera was able capture a frame: ", Date())
+        
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         
         guard let model = try? VNCoreMLModel(for: EmotionClassifier(configuration: MLModelConfiguration()).model) else { return }
         
-        let request = VNCoreMLRequest(model: model) {
-            (finishedReq, err) in
+        let request = VNCoreMLRequest(model: model) { finishedReq, err in
             
-//            print(finishedReq.results)
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
             
             print(firstObservation.identifier, firstObservation.confidence)
             
-            DispatchQueue.main.async { [self] in
-               
-                if observationStarted {
-                    observedData.append(firstObservation.identifier)
-                    observedConfidence.append(firstObservation.confidence)
-                    realtimeMode = false
-                    if observedData.count >= 50 {
-                        layoutPredict()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                if self.observationStarted {
+                    self.observedData.append(firstObservation.identifier)
+                    self.observedConfidence.append(firstObservation.confidence)
+                    self.realtimeMode = false
+                    if self.observedData.count >= 50 {
+                        self.layoutPredict()
                     }
                     
-                } else if realtimeMode {
-                    predictLabel.text = "\(firstObservation.identifier) with \(Int(firstObservation.confidence * 100))% confidence"
+                } else if self.realtimeMode {
+                    self.predictLabel.text = "\(firstObservation.identifier) with \(Int(firstObservation.confidence * 100))% confidence"
                 }
             }
         }
@@ -187,19 +213,4 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
         
     }
-}
-
-extension Array where Element: FloatingPoint {
-    
-    var sum: Element {
-        return reduce(0, +)
-    }
-
-    var average: Element {
-        guard !isEmpty else {
-            return 0
-        }
-        return sum / Element(count)
-    }
-
 }
