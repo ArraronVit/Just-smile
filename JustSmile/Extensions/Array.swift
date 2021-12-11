@@ -23,7 +23,6 @@ extension Array where Element: FloatingPoint {
 }
 
 extension Array where Element: Hashable {
-    
     var mode: Element? {
         reduce([Element: Int]()) {
             var counts = $0
@@ -31,5 +30,4 @@ extension Array where Element: Hashable {
             return counts
         }.max { $0.1 < $1.1 }?.0
     }
-    
 }

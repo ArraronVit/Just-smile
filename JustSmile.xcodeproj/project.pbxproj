@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8073650262841A00009A9C9 /* MobAffNetC.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D807364F262841A00009A9C9 /* MobAffNetC.mlmodel */; };
 		D811EB1D25CB413E00D635D0 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = D811EB1C25CB413E00D635D0 /* Array.swift */; };
 		D851721525BC88A100CF41E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851721425BC88A100CF41E0 /* AppDelegate.swift */; };
 		D851721725BC88A100CF41E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D851721625BC88A100CF41E0 /* SceneDelegate.swift */; };
@@ -14,6 +15,8 @@
 		D851721C25BC88A100CF41E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D851721A25BC88A100CF41E0 /* Main.storyboard */; };
 		D851721E25BC88A200CF41E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D851721D25BC88A200CF41E0 /* Assets.xcassets */; };
 		D851722125BC88A200CF41E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D851721F25BC88A200CF41E0 /* LaunchScreen.storyboard */; };
+		D8620DF527651F59004F3DD8 /* EmotionClassifier4.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8620DF327651F59004F3DD8 /* EmotionClassifier4.mlmodel */; };
+		D8620DF627651F59004F3DD8 /* EmotionClassificator.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8620DF427651F59004F3DD8 /* EmotionClassificator.mlmodel */; };
 		D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */; };
 		D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87A46EC25C8361400A1FC03 /* RoundedButton.swift */; };
 		D8B9548425C05F2100086CA0 /* EmotionClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */; };
@@ -21,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D807364F262841A00009A9C9 /* MobAffNetC.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobAffNetC.mlmodel; sourceTree = "<group>"; };
 		D811EB1C25CB413E00D635D0 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		D84AD9E925C47DB300DD8D8F /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		D851721125BC88A100CF41E0 /* JustSmile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustSmile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +35,8 @@
 		D851721D25BC88A200CF41E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D851722025BC88A200CF41E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D851722225BC88A200CF41E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8620DF327651F59004F3DD8 /* EmotionClassifier4.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionClassifier4.mlmodel; sourceTree = "<group>"; };
+		D8620DF427651F59004F3DD8 /* EmotionClassificator.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionClassificator.mlmodel; sourceTree = "<group>"; };
 		D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdviceDatasource.swift; sourceTree = "<group>"; };
 		D87A46EC25C8361400A1FC03 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = EmotionClassifier.mlmodel; sourceTree = "<group>"; };
@@ -75,8 +81,9 @@
 		D851721325BC88A100CF41E0 /* JustSmile */ = {
 			isa = PBXGroup;
 			children = (
+				D8620DF22765003C004F3DD8 /* MLModels */,
+				D8620DF127650021004F3DD8 /* Helpers */,
 				D811EB1B25CB413E00D635D0 /* Extensions */,
-				D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */,
 				D851721425BC88A100CF41E0 /* AppDelegate.swift */,
 				D851721625BC88A100CF41E0 /* SceneDelegate.swift */,
 				D851721825BC88A100CF41E0 /* ViewController.swift */,
@@ -85,11 +92,29 @@
 				D851721F25BC88A200CF41E0 /* LaunchScreen.storyboard */,
 				D851722225BC88A200CF41E0 /* Info.plist */,
 				D84AD9E925C47DB300DD8D8F /* MyPlayground.playground */,
+			);
+			path = JustSmile;
+			sourceTree = "<group>";
+		};
+		D8620DF127650021004F3DD8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
 				D87A46E925C8150700A1FC03 /* AdviceDatasource.swift */,
 				D87A46EC25C8361400A1FC03 /* RoundedButton.swift */,
 				D8F9156925C97A8E00C0869A /* RoundedLabel.swift */,
 			);
-			path = JustSmile;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D8620DF22765003C004F3DD8 /* MLModels */ = {
+			isa = PBXGroup;
+			children = (
+				D8B9548325C05F2100086CA0 /* EmotionClassifier.mlmodel */,
+				D807364F262841A00009A9C9 /* MobAffNetC.mlmodel */,
+				D8620DF427651F59004F3DD8 /* EmotionClassificator.mlmodel */,
+				D8620DF327651F59004F3DD8 /* EmotionClassifier4.mlmodel */,
+			);
+			path = MLModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +189,14 @@
 			files = (
 				D8B9548425C05F2100086CA0 /* EmotionClassifier.mlmodel in Sources */,
 				D851721925BC88A100CF41E0 /* ViewController.swift in Sources */,
+				D8620DF627651F59004F3DD8 /* EmotionClassificator.mlmodel in Sources */,
 				D851721525BC88A100CF41E0 /* AppDelegate.swift in Sources */,
 				D87A46ED25C8361400A1FC03 /* RoundedButton.swift in Sources */,
 				D87A46EA25C8150700A1FC03 /* AdviceDatasource.swift in Sources */,
 				D811EB1D25CB413E00D635D0 /* Array.swift in Sources */,
+				D8620DF527651F59004F3DD8 /* EmotionClassifier4.mlmodel in Sources */,
 				D8F9156A25C97A8E00C0869A /* RoundedLabel.swift in Sources */,
+				D8073650262841A00009A9C9 /* MobAffNetC.mlmodel in Sources */,
 				D851721725BC88A100CF41E0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
